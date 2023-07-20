@@ -11,6 +11,7 @@ import java.util.stream.IntStream;
 
 public class SelectionSort {
     public static void sort(Comparable[] data) {
+        ArrayUtil.checkNull(data);
         int m;
         int n = data.length;
         for (int i = 0; i < n; i++) {

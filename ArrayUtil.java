@@ -17,6 +17,14 @@ public class ArrayUtil {
         StdOut.print("]\n");
     }
 
+    public static void checkNull(Object[] a) {
+        if (a == null)
+            throw new IllegalArgumentException("");
+        for (Object o : a)
+            if (o == null)
+                throw new IllegalArgumentException();
+    }
+
     public static void exchange(Object[] a, int i, int j) {
         Object tmp = a[i];
         a[i] = a[j];

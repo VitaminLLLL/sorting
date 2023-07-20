@@ -10,11 +10,12 @@ import edu.princeton.cs.algs4.StdRandom;
 import java.util.stream.IntStream;
 
 public class InsertionSort {
-    public static void sort(Comparable[] a) {
-        int n = a.length;
+    public static void sort(Comparable[] data) {
+        ArrayUtil.checkNull(data);
+        int n = data.length;
         for (int i = 1; i < n; i++)
-            for (int j = i; j > 0 && ArrayUtil.less(a[j], a[j - 1]); j--)
-                ArrayUtil.exchange(a, j, j - 1);
+            for (int j = i; j > 0 && ArrayUtil.less(data[j], data[j - 1]); j--)
+                ArrayUtil.exchange(data, j, j - 1);
     }
 
     public static void main(String[] args) {

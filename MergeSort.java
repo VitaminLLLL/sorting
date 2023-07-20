@@ -4,30 +4,38 @@
  * <p>
  * Merge Sort with some optimization
  * 1. Use Insertion sort if array size less than 7
- * 2. forget..
+ * 2. Use data as aux then don't need to copy the result.
+ * 3. compare data[mid] and data[mid+1] before merge
  ******************************************************************************/
+
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.StdRandom;
+
+import java.time.Duration;
+import java.time.Instant;
 
 public class MergeSort {
     private static final int INSERTION_SORT_SIZE = 7;
 
     public static void sort(Comparable[] data) {
         ArrayUtil.checkNull(data);
-        int n = data.length;
-        int hi = n - 1;
+        int hi = data.length - 1;
         int lo = 0;
-        Comparable[] aux = new Comparable[n];
-        System.arraycopy(data, 0, aux, 0, n);
-        sort(data, aux, lo, hi);
+        Comparable[] aux = data.clone();
+        sort(aux, data, lo, hi);
     }
 
     private static void sort(Comparable[] a, Comparable[] aux, int lo, int hi) {
         if ((hi - lo) < INSERTION_SORT_SIZE) {
-            insertionSort(a, lo, hi);
+            insertionSort(aux, lo, hi);
             return;
         }
-        int mid = (hi + lo) / 2;
-        sort(a, aux, lo, mid);
-        sort(a, aux, mid + 1, hi);
+        // Use divide may lead to overflow
+        int mid = (hi + lo) >>> 1;
+        sort(aux, a, lo, mid);
+        sort(aux, a, mid + 1, hi);
+        if (ArrayUtil.less(a[mid], a[mid + 1]))
+            System.arraycopy(a, lo, aux, lo, hi - lo + 1);
         merge(a, aux, lo, mid, hi);
     }
 
@@ -45,7 +53,6 @@ public class MergeSort {
             else if (j > hi) aux[k] = a[i++];
             else if (ArrayUtil.less(a[i], a[j])) aux[k] = a[i++];
             else aux[k] = a[j++];
-        System.arraycopy(aux, lo, a, lo, hi - lo + 1);
     }
 
     public static void main(String[] args) {
@@ -55,10 +62,15 @@ public class MergeSort {
         } else {
             n = Integer.parseInt(args[0]);
         }
-        Integer[] a = java.util.stream.IntStream.of(edu.princeton.cs.algs4.StdRandom.permutation(n)).boxed().toArray(Integer[]::new);
+        Integer[] a = java.util.stream.IntStream.of(StdRandom.permutation(n)).boxed().toArray(Integer[]::new);
 
-        ArrayUtil.print(a);
+        //ArrayUtil.print(a);
+        Instant start = Instant.now();
         MergeSort.sort(a);
-        ArrayUtil.print(a);
+        Instant end = Instant.now();
+        //ArrayUtil.print(a);
+
+        Duration time = Duration.between(start, end);
+        StdOut.println("Execution time: " + time.toNanos() / 1000 + " us.");
     }
 }

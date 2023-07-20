@@ -5,8 +5,11 @@
  * Selection Sort
  ******************************************************************************/
 
+import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.stream.IntStream;
 
 public class SelectionSort {
@@ -33,8 +36,14 @@ public class SelectionSort {
             n = Integer.parseInt(args[0]);
         }
         Integer[] a = IntStream.of(StdRandom.permutation(n)).boxed().toArray(Integer[]::new);
-        ArrayUtil.print(a);
+
+        //ArrayUtil.print(a);
+        Instant start = Instant.now();
         SelectionSort.sort(a);
-        ArrayUtil.print(a);
+        Instant end = Instant.now();
+        //ArrayUtil.print(a);
+
+        Duration time = Duration.between(start, end);
+        StdOut.println("Execution time: " + time.toNanos() / 1000 + " us.");
     }
 }

@@ -19,6 +19,7 @@ public class InsertionSort {
         for (int i = 1; i < n; i++)
             for (int j = i; j > 0 && ArrayUtil.less(data[j], data[j - 1]); j--)
                 ArrayUtil.exchange(data, j, j - 1);
+        assert ArrayUtil.isSort(data, 0, n - 1);
     }
 
     public static void main(String[] args) {

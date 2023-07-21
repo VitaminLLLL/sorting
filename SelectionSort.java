@@ -26,6 +26,7 @@ public class SelectionSort {
             }
             ArrayUtil.exchange(data, m, i);
         }
+        assert ArrayUtil.isSort(data, 0, n - 1);
     }
 
     public static void main(String[] args) {

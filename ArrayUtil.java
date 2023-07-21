@@ -34,4 +34,11 @@ public class ArrayUtil {
     public static boolean less(Comparable a, Comparable b) {
         return a.compareTo(b) < 0;
     }
+
+    public static boolean isSort(Comparable[] a, int lo, int hi) {
+        for (int i = lo + 1; i <= hi; i++)
+            if (ArrayUtil.less(a[i], a[i - 1]))
+                return false;
+        return true;
+    }
 }

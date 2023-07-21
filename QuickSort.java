@@ -2,8 +2,8 @@
  * Copyright (c) 2023. VitaminL
  * All rights reserved.
  * <p>
- * QuickSort, Use Insertion Sort as well for short array
- * need to handle the equal case.
+ * QuickSort, Use Insertion Sort as well for short array.
+ * Not solving the case when there are multi duplicates.
  ******************************************************************************/
 
 import edu.princeton.cs.algs4.StdOut;
@@ -21,6 +21,7 @@ public class QuickSort {
         int lo = 0;
         int hi = data.length - 1;
         sort(data, lo, hi);
+        assert ArrayUtil.isSort(data, lo, hi);
     }
 
     private static void sort(Comparable[] a, int lo, int hi) {
@@ -32,13 +33,12 @@ public class QuickSort {
         int k = partition(a, lo, hi);
         sort(a, lo, k - 1);
         sort(a, k + 1, hi);
-        assert ArrayUtil.isSort(a, lo, hi);
     }
 
     private static int partition(Comparable[] a, int lo, int hi) {
         int i = lo + 1;
         int j = hi;
-        while (i < j) {
+        while (i <= j) {
             if (ArrayUtil.less(a[i], a[lo])) i++;
             else if (ArrayUtil.less(a[lo], a[j])) j--;
             else ArrayUtil.exchange(a, i++, j);
@@ -61,7 +61,7 @@ public class QuickSort {
             n = Integer.parseInt(args[0]);
         }
         Integer[] a = java.util.stream.IntStream.of(StdRandom.permutation(n)).boxed().toArray(Integer[]::new);
-
+        //String[] b = new String[]{"Q", "U", "I", "C", "K", "S", "O", "R", "T", "E", "X", "A", "M", "P", "L", "E"};
         //ArrayUtil.print(a);
         Instant start = Instant.now();
         QuickSort.sort(a);

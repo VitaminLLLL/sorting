@@ -23,6 +23,7 @@ public class MergeSort {
         int lo = 0;
         Comparable[] aux = data.clone();
         sort(aux, data, lo, hi);
+        assert ArrayUtil.isSort(data, lo, hi);
     }
 
     private static void sort(Comparable[] a, Comparable[] aux, int lo, int hi) {
@@ -37,7 +38,6 @@ public class MergeSort {
         if (ArrayUtil.less(a[mid], a[mid + 1]))
             System.arraycopy(a, lo, aux, lo, hi - lo + 1);
         merge(a, aux, lo, mid, hi);
-        assert ArrayUtil.isSort(aux, lo, hi);
     }
 
     private static void insertionSort(Comparable[] a, int lo, int hi) {

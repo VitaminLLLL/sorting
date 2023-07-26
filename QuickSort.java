@@ -3,7 +3,7 @@
  * All rights reserved.
  * <p>
  * QuickSort, Use Insertion Sort as well for short array.
- * Not solving the case when there are multi duplicates.
+ * Add implementation when there are multi duplicates.
  ******************************************************************************/
 
 import edu.princeton.cs.algs4.StdOut;
@@ -47,6 +47,24 @@ public class QuickSort {
         return i - 1;
     }
 
+    // Sorting with 3 way partition(many duplicates)
+    private static void sortThreeWay(Comparable[] a, int lo, int hi) {
+        if (lo >= hi) return;
+        int i = lo + 1;
+        int lt = lo;
+        int gt = hi;
+        Comparable v = a[lo];
+        while (i <= gt) {
+            if (ArrayUtil.less(a[i], v))
+                ArrayUtil.exchange(a, i++, lt++);
+            else if (ArrayUtil.less(v, a[i]))
+                ArrayUtil.exchange(a, i, gt--);
+            else i++;
+        }
+        sort(a, lo, lt - 1);
+        sort(a, gt + 1, hi);
+    }
+
     private static void insertionSort(Comparable[] a, int lo, int hi) {
         for (int i = lo + 1; i <= hi; i++)
             for (int j = i; j > lo && ArrayUtil.less(a[j], a[j - 1]); j--)
@@ -61,10 +79,12 @@ public class QuickSort {
             n = Integer.parseInt(args[0]);
         }
         Integer[] a = java.util.stream.IntStream.of(StdRandom.permutation(n)).boxed().toArray(Integer[]::new);
+        //String[] b = new String[]{"B", "B", "B", "G", "R", "Q", "R", "R", "G", "S", "B", "B", "G", "G", "G", "R"};
         //String[] b = new String[]{"Q", "U", "I", "C", "K", "S", "O", "R", "T", "E", "X", "A", "M", "P", "L", "E"};
         //ArrayUtil.print(a);
         Instant start = Instant.now();
         QuickSort.sort(a);
+        //QuickSort.sortThreeWay(b, 0, b.length - 1);
         Instant end = Instant.now();
         //ArrayUtil.print(a);
 

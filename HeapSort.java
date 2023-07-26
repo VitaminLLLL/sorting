@@ -1,16 +1,16 @@
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
-
-import java.time.Duration;
-import java.time.Instant;
-import java.util.stream.IntStream;
-
 /*******************************************************************************
  * Copyright (c) 2023. VitaminL
  * All rights reserved.
  * <p>
  * HeapSort Implementation
  ******************************************************************************/
+
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.StdRandom;
+
+import java.time.Duration;
+import java.time.Instant;
+import java.util.stream.IntStream;
 
 public class HeapSort {
 
@@ -54,7 +54,6 @@ public class HeapSort {
             n = Integer.parseInt(args[0]);
         }
         Integer[] a = IntStream.of(StdRandom.permutation(n)).boxed().toArray(Integer[]::new);
-        //Integer[] a = new Integer[]{5, 8, 14, 4, 7, 2, 3, 6, 12, 10, 0, 11, 13, 9, 1};
 
         Instant start = Instant.now();
         HeapSort.sort(a);
